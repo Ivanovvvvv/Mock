@@ -45,14 +45,16 @@ public class MainController {
                 maxLimit = new BigDecimal(1000);
                 currency= "EU";
             }else{
-                maxLimit = new BigDecimal(10000);
+                maxLimit = new BigDecimal(50000);
                 currency= "RUB";
             }
 
             Random random = new Random();
             BigDecimal balanceRough = maxLimit.multiply(BigDecimal.valueOf(random.nextDouble()));
-            //Округлю до сотых(копейки, центы, евроценты). Можно округлить до целых поставив 0 в значение newScale.
-            BigDecimal balance = balanceRough.setScale(2, RoundingMode.HALF_UP);
+            // Округляю до целого числа и наличие двух нулей после запятой(согласно примеру из задания)
+            BigDecimal balance = balanceRough.setScale(0, RoundingMode.HALF_UP).setScale(2);
+//          Округлю до сотых(копейки, центы, евроценты).Более реалистичный случай:).
+//          BigDecimal balance = balanceRough.setScale(2, RoundingMode.HALF_UP);
 
             ResponseDTO responseDTO = new ResponseDTO();
 
